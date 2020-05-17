@@ -11,11 +11,7 @@ def restructure(buff):
 
 @app.route("/")
 def display():
-    f = open('covid-data-statewise.csv', 'r')
-    res = restructure(f)
-
-    return render_template('covid-main.html', data = res[2:])
-
+    return render_template('covid-main.html', data = details)
 
 
 if(__name__ == '__main__'):
@@ -27,14 +23,9 @@ if(__name__ == '__main__'):
     y = json.loads(json.dumps(data['statewise']))
     print(type(y))
 
-    filename = './covid-data-statewise.csv'
-    with open(filename, 'w') as f: 
-        w = csv.DictWriter(f,['active','confirmed',
-        'deaths','deltaconfirmed','deltadeaths',
-        'deltarecovered','lastupdatedtime','recovered'
-        ,'state','statecode','statenotes']) 
-        w.writeheader() 
-        for i in y: 
-            w.writerow(i) 
+    details = list()
+    for i in y:
+        res = [i['state'], i['active'], i['deaths'], i['recovered'], i['confirmed'], i['lastupdatedtime']]
+        details.append(res)
 
     app.run(port = 8051, debug = True)
