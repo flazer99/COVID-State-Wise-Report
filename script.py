@@ -11,6 +11,7 @@ def restructure(buff):
 
 @app.route("/")
 def display():
+    global details
     return render_template('covid-main.html', data = details)
 
 
