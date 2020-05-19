@@ -42,6 +42,15 @@
         .f-color {
             color: rgb(241, 172, 23);
         }
+
+        .custom-toggler.navbar-toggler { 
+            border-color: yellow; 
+        } 
+
+        .custom-toggler .navbar-toggler-icon { 
+            background-image: url( 
+"data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0, 128, 0, 0.8)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E"); 
+        } 
     </style>
 </head>
 
@@ -49,7 +58,7 @@
     <!--Navbar -->
     <nav class="font-nav shadow p-3 mb-5 bg-white mb-1 nav navbar sticky-top navbar-expand-lg info-color">
         <a class="navbar-brand f-color" href="https://covid-report-india.herokuapp.com/">COVID-19 Report</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
+        <button class="navbar-toggler custom-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
             aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
