@@ -4,11 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Providing to you a dynamic report of the COVID-19
-    cases in India. The information gets refreshed as soon as the cases are updated. A single destination to 
-    view the stats about the cases in different regions of India cornering on the Active cases, Deaths, Recovered and
-    the Total Cases in that specific region.">
-    <title>COVID-19 Report in India</title>
+    <title>COVID-19 District</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
@@ -20,27 +16,72 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
     </script>
-    <script data-ad-client="ca-pub-1853779411735397" async
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 
     <style>
+        .font-nav {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+        }
+
         body {
             min-height: 100vh;
 
             background-color: #FFE53B;
             background-image: linear-gradient(147deg, #FFE53B 0%, #FF2525 100%);
         }
+
+        .nav {
+            width: 50%;
+            margin: auto;
+            background-color: white;
+            color: rgb(241, 172, 23);
+            border-radius: 40px;
+        }
+
+        .f-color {
+            color: rgb(241, 172, 23);
+        }
     </style>
 </head>
 
 <body>
+    <!--Navbar -->
+    <nav class="font-nav shadow p-3 mb-5 bg-white mb-1 nav navbar sticky-top navbar-expand-lg info-color">
+        <a class="navbar-brand f-color" href="http://localhost:8051">COVID-19 Report</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
+            aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link f-color" href="#">
+                        About
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link f-color" href="http://localhost:8051">
+                        Overview
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link f-color" href="http://localhost:8051/state-wise">
+                        State-Wise
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!--/.Navbar -->
+
     <div class="container py-5">
-        <header class="text-center text-white">
-            <h1 class="display-4">COVID-19 Cases REPORT in India</h1>
+        <header class="font-nav text-center text-white">
+            <h1 class="display-4">COVID-19 Cases REPORT</h1>
             <p class="lead mb-0">Statistics of the number of cases due to
                 the horrendous COVID-19.</p>
         </header>
-        <div class="row py-5">
+        <div class="font-nav row py-5">
             <div class="col-lg-10 mx-auto">
                 <div class="card rounded shadow border-0">
                     <div class="card-body p-5 bg-white rounded">
@@ -91,6 +132,8 @@
                 </div>
             </div>
         </div>
+        <script data-ad-client="ca-pub-1853779411735397" async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
         <div class="text-center font-weight-bold text-monospace">
             © Kiran S Raj, 2020
         </div>

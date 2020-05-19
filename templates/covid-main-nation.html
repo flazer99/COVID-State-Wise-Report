@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COVID-19 District</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+    </script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script> -->
+    <!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js'></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">    
+    
+    <style>
+        :root {
+            --background-dark: #2d3548;
+            --text-light: rgba(255, 255, 255, 0.6);
+            --text-lighter: rgba(255, 255, 255, 0.9);
+            --spacing-s: 8px;
+            --spacing-m: 16px;
+            --spacing-l: 24px;
+            --spacing-xl: 32px;
+            --spacing-xxl: 64px;
+            --width-container: 1200px;
+        }
+
+        * {
+            border: 0;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* html {
+            height: 100%;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+        } */
+
+        /* body {
+            height: 100%;
+            min-height: 100vh;
+            background-color: #FFE53B;
+            background-image: linear-gradient(147deg, #FFE53B 0%, #FF2525 100%);
+        } */
+
+        .nav {
+            width: 50%;
+            margin: auto;
+            background-color: white;
+            color: rgb(241, 172, 23);
+            border-radius: 40px;
+        }
+
+        .f-color {
+            color: rgb(241, 172, 23);
+        }
+
+        .hero-section {
+            margin-left: 2rem;
+            margin-right: 2rem;
+            border-radius: 20px;
+            align-items: flex-start;
+            background-color: white;
+            display: flex;
+            /* min-height: 50%; */
+            justify-content: center;
+            padding: var(--spacing-xxl) var(--spacing-l);
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            grid-column-gap: var(--spacing-l);
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+            /* grid-row-gap: var(--spacing-l); */
+            max-width: var(--width-container);
+            width: 100%;
+        }
+
+        @media(min-width: 540px) {
+            .card-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media(min-width: 960px) {
+            .card-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .card {
+            list-style: none;
+            position: relative;
+        }
+
+        .card:before {
+            content: '';
+            display: block;
+            /* padding-top: 30%; */
+            padding-bottom: 50%;
+            width: 100%;
+        }
+
+        .card__background {
+            background-size: cover;
+            background-position: center;
+            border-radius: var(--spacing-l);
+            bottom: 0;
+            /* filter: brightness(0.75) saturate(1.2) contrast(0.85); */
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            transform-origin: center;
+            /* transform: scale(1) translateZ(0); */
+            transition:
+                filter 200ms linear,
+                transform 200ms linear;
+        }
+
+        .card:hover .card__background {
+            transform: scale(1.05) translateZ(0);
+        }
+
+        .card-grid:hover>.card:not(:hover) .card__background {
+            filter: brightness(0.5) saturate(0) contrast(1.2) blur(20px);
+        }
+
+        .card__content {
+            left: 0;
+            padding: var(--spacing-l);
+            position: absolute;
+            top: 0;
+        }
+
+        .card__category {
+            color: var(--text-light);
+            font-size: 1.3rem;
+            /* margin-bottom: var(--spacing-s); */
+            text-transform: uppercase;
+            /* text-align: center; */
+        }
+
+        .card__heading {
+            color: var(--text-lighter);
+            font-size: 1.9rem;
+            /* text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.2); */
+            line-height: 1.4;
+            word-spacing: 100vw;
+        }
+    </style>
+    <style>
+        .font-nav{
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+        }
+
+        body {
+            min-height: 100vh;
+            background-color: #FFE53B;
+            background-image: linear-gradient(147deg, #FFE53B 0%, #FF2525 100%);
+            background-repeat: no-repeat; 
+            /* background-size: cover; */
+        }
+
+        .nav {
+            width: 50%;
+            margin: auto;
+            background-color: white;
+            color: rgb(241, 172, 23);
+            border-radius: 40px;
+        }
+
+        .f-color {
+            color: rgb(241, 172, 23);
+        }
+
+        .graph
+        {
+            /* margin: 1rem; */
+            /* padding:2rem; */
+            background-color: white;
+            border-radius: 40px;
+        }
+    </style>
+</head>
+
+<body class="container-fluid">
+    <!--Navbar -->
+    <nav class="font-nav shadow p-3 mb-5 bg-white mb-1 nav navbar sticky-top navbar-expand-lg info-color">
+        <a class="navbar-brand f-color" href="#">COVID-19 Report</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
+            aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link f-color" href="#">
+                        About
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link f-color" href="http://localhost:8051/">
+                        Overview
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link f-color" href="http://localhost:8051/state-wise">
+                        State-Wise
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!--/.Navbar -->
+    
+    <!-- Cards -->
+    <section class="shadow p-3 mb-5 bg-white mb-1 hero-section">
+        <div class="card-grid">
+            <a class="card " href="#">
+                <div class="card__background"  style="background: #ee0979;  /* fallback for old browsers */
+                background: -webkit-linear-gradient(to right, #ff6a00, #ee0979);  /* Chrome 10-25, Safari 5.1-6 */
+                background: linear-gradient(to right, #ff6a00, #ee0979); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+                ">
+                </div>
+                <div class="card__content font-nav">
+                    <p class="card__category">Total ACTIVE</p>
+                    <h3 class="card__heading">{{active}}</h3>
+                </div>
+            </a>
+            <a class="card" href="#">
+                <div class="card__background" style="background: #141E30;  /* fallback for old browsers */
+                background: -webkit-linear-gradient(to right, #243B55, #141E30);  /* Chrome 10-25, Safari 5.1-6 */
+                background: linear-gradient(to right, #243B55, #141E30); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+                ">
+                </div>
+                <div class="card__content font-nav">
+                    <p class="card__category">DEATHS Today</p>
+                    <h3 class="card__heading">{{deaths}}</h3>
+                </div>
+            </a>
+            <a class="card" href="#">
+                <div class="card__background" style="background: #11998e;  /* fallback for old browsers */
+                background: -webkit-linear-gradient(to right, #38ef7d, #11998e);  /* Chrome 10-25, Safari 5.1-6 */
+                background: linear-gradient(to right, #38ef7d, #11998e); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+                ">
+                </div>
+                <div class="card__content font-nav">
+                    <p class="card__category">RECOVERED Today</p>
+                    <h3 class="card__heading">{{recovered}}</h3>
+                </div>
+                </li>
+                <a class="card" href="#">
+                    <div class="card__background"
+                        style="background: #f12711;  /* fallback for old browsers */
+                        background: -webkit-linear-gradient(to right, #f5af19, #f12711);  /* Chrome 10-25, Safari 5.1-6 */
+                        background: linear-gradient(to right, #f5af19, #f12711); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+                        ">
+                    </div>
+                    <div class="card__content font-nav">
+                        <p class="card__category">CONFIRMED Today</p>
+                        <h3 class="card__heading">{{confirmed}}</h3>
+                    </div>
+                </a>
+
+                <div>
+    </section>
+    <!-- Cards -->
+
+
+    <canvas class="shadow p-3 mb-5 bg-white mb-1 graph container" width="1000px" height="500px" id="my-simple-chart"></canvas>
+    <div class="text-center font-weight-bold text-monospace">
+        © Kiran S Raj, 2020
+    </div>
+    <script>
+        var data1 = {
+            label: 'Total Cases',
+            borderColor: 'yellow',
+            // backgroundColor: ["#f4e04d"],
+            data:[
+                    {% for i in total_cases %}
+                        {
+                            x: "{{i[0]}}",
+                            y:  {{i[1]}}
+                        },
+                    {% endfor %}
+                 ]  
+            };
+
+        var data2 = {
+            label: 'Total Deaths',
+            borderColor: 'red',
+            backgroundColor: ["#e58a8a"],
+            data:[
+                    {% for i in total_deaths %}
+                        {
+                            x: "{{i[0]}}",
+                            y:  {{i[1]}}
+                        },
+                    {% endfor %}
+                 ]  
+            };
+
+        var data3 = {
+            label: 'Total Recovered',
+            borderColor: 'green',
+            backgroundColor: ["#b4f2e1"],
+            data:[
+                    {% for i in total_recovered %}
+                        {
+                            x: "{{i[0]}}",
+                            y:  {{i[1]}}
+                        },
+                    {% endfor %}
+                 ]  
+            };
+
+        var data4 = {
+            label: 'Active Cases',
+            backgroundColor: ["#b2ebf2"],
+            borderColor: 'blue',
+            data:[
+                    {% for i in total_active %}
+                        {
+                            x: "{{i[0]}}",
+                            y:  {{i[1]}}
+                        },
+                    {% endfor %}
+                 ]  
+            };
+            // data: [{
+            //         x: '2017-01-06 18:39:30',
+            //         y: 50
+            //     },
+            //     {
+            //         x: '2017-01-15 18:39:28',
+            //         y: 91
+            //     },
+            //     {
+            //         x: '2017-03-07 18:39:28',
+            //         y: 150
+            //     },
+            // ]
+     
+
+        var ctx = document.getElementById('my-simple-chart').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                datasets: [data1, data2, data3, data4]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                title: {
+                    display: true,
+                    text: "Status of COVID-19 in India"
+                    },
+                scales: {
+                    xAxes: [{
+                        type: 'time',
+                        time: {
+                                displayFormats: {
+                                                    day: 'MMM D'
+                                                }
+                                }
+                    }]
+                }
+            }
+        });
+    </script>
+    // <script>
+        //       // bar chart data
+        //       var barData = {
+        //         labels : [
+        //           {% for item in data %}
+        //             "{{ item }}",
+        //           {% endfor %}
+        //         ],
+
+        //         datasets : [{
+        //           fillColor: "rgba(151,187,205,0.2)",
+        //           strokeColor: "rgba(151,187,205,1)",
+        //           pointColor: "rgba(151,187,205,1)",
+        //           pointStrokeColor: "#fff",
+        //           pointHighlightFill: "#fff",
+        //           pointHighlightStroke: "rgba(151,187,205,1)",
+        //           bezierCurve : false,
+        //           data : [
+        // 	    {% for item in data %}
+        //               {{ item }},
+        //             {% endfor %}]
+        //           }
+        // 	]
+        //       }
+
+        //       Chart.defaults.global.animationSteps = 100;
+        //       Chart.defaults.global.tooltipYPadding = 16;
+        //       Chart.defaults.global.tooltipCornerRadius = 0;
+        //       Chart.defaults.global.tooltipTitleFontStyle = "normal";
+        //       Chart.defaults.global.tooltipFillColor = "rgba(0,0,0,0.8)";
+        //       Chart.defaults.global.animationEasing = "easeOutBounce";
+        //       Chart.defaults.global.responsive = false;
+        //       Chart.defaults.global.scaleLineColor = "black";
+        //       Chart.defaults.global.scaleFontSize = 16;
+
+        //       // get bar chart canvas
+        //       var mychart = document.getElementById("chart").getContext("2d");
+
+        //       steps = 50
+
+        //       max = 100000
+        //       // draw bar chart
+        //       var LineChartDemo = new Chart(mychart).Line(barData, {
+        //         scaleOverride: true,
+        //         scaleSteps: steps,
+        //         scaleStepWidth: Math.ceil(max / steps),
+        //         scaleStartValue: 0,
+        //         scaleShowVerticalLines: true,
+        //         scaleShowGridLines : true,
+        //         barShowStroke : true,
+        //         scaleShowLabels: true,
+        //         bezierCurve: false,
+        //       });
+
+        //     
+    // </script>
+    // <script>
+        //         $(function () {
+        //             $(document).ready(function () {
+        //                 $('#example').DataTable();
+        //             });
+        //         });
+        //     
+    //</script>
+</body>
+
+</html>
