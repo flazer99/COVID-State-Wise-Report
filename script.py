@@ -73,5 +73,9 @@ def display_state():
     details = fetch_state()
     return render_template('covid-main-state.html', data = details)
 
+@app.route("/contact")
+def contact():
+    return render_template('covid-main-contact.html')
+    
 if(__name__ == '__main__'):
     app.run(port = 8051, debug = True)
