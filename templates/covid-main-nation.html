@@ -302,6 +302,7 @@
         var data1 = {
             label: 'Total Cases',
             borderColor: 'yellow',
+            pointRadius: 0,
             // backgroundColor: ["#f4e04d"],
             data:[
                     {% for i in total_cases %}
@@ -316,6 +317,7 @@
         var data2 = {
             label: 'Total Deaths',
             borderColor: 'red',
+            pointRadius: 0,
             backgroundColor: ["#e58a8a"],
             data:[
                     {% for i in total_deaths %}
@@ -330,6 +332,7 @@
         var data3 = {
             label: 'Total Recovered',
             borderColor: 'green',
+            pointRadius: 0,
             backgroundColor: ["#b4f2e1"],
             data:[
                     {% for i in total_recovered %}
@@ -344,6 +347,7 @@
         var data4 = {
             label: 'Active Cases',
             backgroundColor: ["#b2ebf2"],
+            pointRadius: 0,
             borderColor: 'blue',
             data:[
                     {% for i in total_active %}
@@ -376,6 +380,9 @@
                 datasets: [data1, data2, data3, data4]
             },
             options: {
+                tooltips: {
+                            intersect: false
+                          },
                 responsive: true,
                 maintainAspectRatio: true,
                 title: {
