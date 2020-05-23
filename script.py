@@ -60,6 +60,27 @@ def fetch_nation():
         
     return total_cases, total_deaths, total_recovered, total_active, daily_cases, daily_deaths, daily_recovered
 
+def fetch_resources():
+    link = "https://api.covid19india.org/resources/resources.json"
+
+    r = requests.get(url = link)
+    data = r.json()
+
+    y = json.loads(json.dumps(data))
+    resources = dict()
+    for i in y['resources']:
+        if(i['state'] not in resources):
+            tmp = [[i['category'], i['city'], i['contact'], 
+                    i['descriptionandorserviceprovided'], i['nameoftheorganisation']
+                    ,i['phonenumber'], i['recordid'], i['state']]]
+            resources[i['state']] = tmp
+
+        else:
+            resources[i['state']].append([i['category'], i['city'], i['contact'], 
+                    i['descriptionandorserviceprovided'], i['nameoftheorganisation']
+                    ,i['phonenumber'], i['recordid'], i['state']])
+    return resources
+
 @app.route("/")
 def display_nation():
     total_cases, total_deaths, total_recovered, total_active, daily_cases, daily_deaths, daily_recovered = fetch_nation()
@@ -76,6 +97,17 @@ def display_state():
 @app.route("/contact")
 def contact():
     return render_template('covid-main-contact.html')
-    
+
+@app.route("/resources")
+def resources():
+    resources = fetch_resources()
+    return render_template('covid-main-resources.html', state = resources.keys(), ctr = 0, data = list(), select = "")
+
+@app.route("/resources/select", methods = ["get"])
+def resources_select():
+    state = request.args.get('state')
+    resources = fetch_resources()
+    return render_template('covid-main-resources.html', state = resources.keys(), ctr = 1, data = resources[state], select = state)
+
 if(__name__ == '__main__'):
     app.run(port = 8051, debug = True)
