@@ -102,6 +102,15 @@
             color: rgb(241, 172, 23);
         }
 
+        .custom-toggler.navbar-toggler { 
+            border-color: yellow; 
+        } 
+
+        .custom-toggler .navbar-toggler-icon { 
+            background-image: url( 
+"data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0, 128, 0, 0.8)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E"); 
+        } 
+        
         .select-state{
             color: rgb(241, 172, 23);
             background-color: white;
@@ -175,7 +184,7 @@
         </header>
         <div class="container select-state shadow p-5 mb-5 bg-white mb-1">
             <h6 class="font-nav">Select a State</h6>
-            <form action="http://localhost:8051/resources/select" method="get">
+            <form action="https://covid-report-india.herokuapp.com/resources/select" method="get">
                 <select id='selUser' class="align-center btn border-warning" name="state" style='width: 100%;'>
                     {% for x in state %}    
                     <option value="{{x}}">{{x}}</option>
