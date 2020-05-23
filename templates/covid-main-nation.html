@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>COVID-19 Overview in India</title>
+    <title>COVID-19 District</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
@@ -23,7 +23,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">    
     
-    <script data-ad-client="ca-pub-1853779411735397" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <style>
         :root {
             --background-dark: #2d3548;
@@ -147,6 +146,7 @@
             padding: var(--spacing-l);
             position: absolute;
             top: 0;
+            /* margin-top: 1rem; */
         }
 
         .card__category {
@@ -207,6 +207,11 @@
             background-image: url( 
 "data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0, 128, 0, 0.8)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E"); 
         } 
+
+        .block-card
+        {
+            margin:auto;
+        }
     </style>
 </head>
 
@@ -246,7 +251,7 @@
     <!--/.Navbar -->
     
     <!-- Cards -->
-    <section class="shadow p-3 mb-5 bg-white mb-1 hero-section">
+    <section class=" block-card shadow p-3 mb-5 bg-white mb-1 hero-section">
         <div class="card-grid">
             <a class="card " href="#">
                 <div class="card__background"  style="background: #ee0979;  /* fallback for old browsers */
@@ -323,7 +328,7 @@
             label: 'Total Deaths',
             borderColor: 'red',
             pointRadius: 0,
-            backgroundColor: ["#e58a8a"],
+            backgroundColor: "#e58a8a",
             data:[
                     {% for i in total_deaths %}
                         {
@@ -338,7 +343,7 @@
             label: 'Total Recovered',
             borderColor: 'green',
             pointRadius: 0,
-            backgroundColor: ["#b4f2e1"],
+            backgroundColor: "#b4f2e1",
             data:[
                     {% for i in total_recovered %}
                         {
@@ -351,7 +356,7 @@
 
         var data4 = {
             label: 'Active Cases',
-            backgroundColor: ["#b2ebf2"],
+            backgroundColor: "#b2ebf2",
             pointRadius: 0,
             borderColor: 'blue',
             data:[
