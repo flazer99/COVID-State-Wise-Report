@@ -16,7 +16,9 @@ def fetch_state():
 
     details = list()
     for i in y:
-        res = [i['state'], i['active'], i['deaths'], i['recovered'], i['confirmed'], i['lastupdatedtime']]
+        res = [i['state'], i['active'], i['deltaconfirmed'], i['deaths'],
+               i['deltadeaths'], i['recovered'], i['deltarecovered'],
+               i['confirmed'], i['lastupdatedtime']]
         details.append(res)
     return details
 

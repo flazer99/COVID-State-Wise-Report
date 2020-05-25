@@ -51,6 +51,14 @@
             background-image: url( 
 "data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0, 128, 0, 0.8)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E"); 
         } 
+
+        .active {
+            color: rgb(148, 4, 4);
+        }
+
+        .recovered {
+            color: rgb(10, 107, 10);
+        }
     </style>
 </head>
 
@@ -96,9 +104,9 @@
                 the horrendous COVID-19.</p>
         </header>
         <div class="font-nav row py-5">
-            <div class="col-lg-10 mx-auto">
+            <div class="col-lg-30 mx-auto">
                 <div class="card rounded shadow border-0">
-                    <div class="card-body p-5 bg-white rounded">
+                    <div class="card-body p-10 bg-white rounded">
                         <div class="table-responsive">
                             <table id="example" style="width:100%" class="table table-striped table-bordered">
                                 <thead>
@@ -118,24 +126,24 @@
                                             {{i[0]}}
                                         </td>
 
-                                        <td class="border rounded border-warning">
-                                            {{i[1]}}
+                                        <td class="border rounded border-warning active">
+                                            {{i[1]}} [+{{i[2]}}]
                                         </td>
 
                                         <td class="border rounded border-danger">
-                                            {{i[2]}}
+                                            {{i[3]}} [+{{i[4]}}]
                                         </td>
 
-                                        <td class="border rounded border-primary">
-                                            {{i[3]}}
+                                        <td class="border rounded border-primary recovered">
+                                            {{i[5]}} [+{{i[6]}}]
                                         </td>
 
                                         <td class="border rounded border-success">
-                                            {{i[4]}}
+                                            {{i[7]}}
                                         </td>
 
                                         <td class="border rounded border-dark">
-                                            {{i[5]}}
+                                            {{i[8]}}
                                         </td>
                                     </tr>
                                     {% endfor %}
@@ -146,8 +154,6 @@
                 </div>
             </div>
         </div>
-        <script data-ad-client="ca-pub-1853779411735397" async
-            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
         <div class="text-center font-weight-bold text-monospace">
             © Kiran S Raj, 2020
         </div>
