@@ -86,7 +86,7 @@ def fetch_resources():
 @app.route("/")
 def display_nation():
     total_cases, total_deaths, total_recovered, total_active, daily_cases, daily_deaths, daily_recovered = fetch_nation()
-    return render_template('covid-main-nation.html', active = total_active[-1][1] , recovered = daily_recovered[-1]
+    return render_template('covid-main-nation.html', cases = total_cases[-1][1] , recovered = daily_recovered[-1]
     , deaths = daily_deaths[-1], confirmed = daily_cases[-1], total_cases = total_cases
     , total_recovered = total_recovered, total_deaths = total_deaths
     , total_active = total_active)
