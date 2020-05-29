@@ -5,6 +5,10 @@ from flask import *
 
 app = Flask(__name__)
 
+def restructure(buff):
+    data = [x.split(',') for x in buff.read().split('\n') if(len(x.split(',')) >= 2)]
+    return data
+
 def fetch_state():
     link = "https://api.covid19india.org/data.json"
 
@@ -35,6 +39,7 @@ def fetch_nation():
     total_deaths = list()
     total_recovered = list()
     total_active = list()
+    delta_active = list()
 
     daily_cases = list()
     daily_deaths = list()
@@ -59,8 +64,43 @@ def fetch_nation():
         total_deaths.append([time_, int(i['totaldeceased'])])
         total_recovered.append([time_, int(i['totalrecovered'])])
         total_active.append([time_, int(i['totalconfirmed'])-int(i['totaldeceased'])-int(i['totalrecovered'])])
-        
-    return total_cases, total_deaths, total_recovered, total_active, daily_cases, daily_deaths, daily_recovered
+        delta_active.append([time_, int(i['dailyconfirmed'])])
+
+    #Prediction
+
+    # Total Cases
+    f = open('prediction-total-cases.csv','r')
+    pred_total_cases = restructure(f)
+    # print(res[1:])
+    cal_ind = {'01':'Jan', '02':'Feb', '03':'Mar', '04':'Apr', '05':'May'
+           ,'06':'Jun', '07':'Jul', '08':'Aug', '09':'Sep', '10':'Oct'
+           , '11':'Nov', '12':'Dec'}
+    
+    for i in pred_total_cases[1:]:
+        i[0] = cal_ind[i[0].split('-')[1]] + " " + i[0].split('-')[2]
+        i[1] = int(float(i[1]))  
+
+    #Active Cases
+    f = open('prediction-active-cases.csv','r')
+    pred_active_cases = restructure(f)
+
+    for i in pred_active_cases[1:]:
+        i[0] = cal_ind[i[0].split('-')[1]] + " " + i[0].split('-')[2]
+        i[1] = int(float(i[1])) 
+        if(i[1]<0):
+            i[1] = 0
+
+    #Daily Confirmed
+    f = open('prediction-daily-cases.csv','r')
+    pred_daily_cases = restructure(f)
+    # print(res[1:])
+
+    for i in pred_daily_cases[1:]:
+        i[0] = cal_ind[i[0].split('-')[1]] + " " + i[0].split('-')[2]
+        i[1] = int(float(i[1]))
+        if(i[1]<0):
+            i[1] = 0        
+    return total_cases, total_deaths, total_recovered, total_active, daily_cases, daily_deaths, daily_recovered, pred_active_cases, pred_daily_cases, pred_total_cases, delta_active
 
 def fetch_resources():
     link = "https://api.covid19india.org/resources/resources.json"
@@ -85,11 +125,12 @@ def fetch_resources():
 
 @app.route("/")
 def display_nation():
-    total_cases, total_deaths, total_recovered, total_active, daily_cases, daily_deaths, daily_recovered = fetch_nation()
+    total_cases, total_deaths, total_recovered, total_active, daily_cases, daily_deaths, daily_recovered, pred_active_cases, pred_daily_cases, pred_total_cases, delta_active = fetch_nation()
     return render_template('covid-main-nation.html', cases = total_cases[-1][1] , recovered = daily_recovered[-1]
     , deaths = daily_deaths[-1], confirmed = daily_cases[-1], total_cases = total_cases
     , total_recovered = total_recovered, total_deaths = total_deaths
-    , total_active = total_active)
+    , total_active = total_active, delta_confirmed = delta_active, pred_total_cases = pred_total_cases[1:]
+    , pred_active_cases = pred_active_cases[1:], pred_daily_cases = pred_daily_cases[1:])
 
 @app.route("/state-wise")
 def display_state():

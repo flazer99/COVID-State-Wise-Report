@@ -304,7 +304,24 @@
     <!-- Cards -->
 
 
-    <canvas class="shadow p-3 mb-5 bg-white mb-1 graph container" width="1000px" height="500px" id="my-simple-chart"></canvas>
+    <div class="row">
+        <div class="col-lg-6 col-md-12">
+            <canvas class="shadow p-3 mb-5 bg-white mb-1 graph container" width="1000px" height="500px" id="my-simple-chart-1"></canvas>
+        </div>
+        <div class="col-lg-6 col-md-12">
+            <canvas class="shadow p-3 mb-5 bg-white mb-1 graph container" width="1000px" height="500px" id="my-simple-chart-2"></canvas>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6 col-md-12">
+            <canvas class="shadow p-3 mb-5 bg-white mb-1 graph container" width="1000px" height="500px" id="my-simple-chart-3"></canvas>
+        </div>
+        <div class="col-lg-6 col-md-12">
+            <canvas class="shadow p-3 mb-5 bg-white mb-1 graph container" width="1000px" height="500px" id="my-simple-chart-4"></canvas>
+        </div>
+    </div>    
+    
     <div class="text-center text-white font-weight-bold text-monospace">
         © Kiran S Raj, 2020
     </div>
@@ -368,23 +385,99 @@
                     {% endfor %}
                  ]  
             };
-            // data: [{
-            //         x: '2017-01-06 18:39:30',
-            //         y: 50
-            //     },
-            //     {
-            //         x: '2017-01-15 18:39:28',
-            //         y: 91
-            //     },
-            //     {
-            //         x: '2017-03-07 18:39:28',
-            //         y: 150
-            //     },
-            // ]
-     
 
-        var ctx = document.getElementById('my-simple-chart').getContext('2d');
-        var chart = new Chart(ctx, {
+        var data5 = {
+            label: 'Predicted Total Cases',
+            borderColor: 'red',
+            pointRadius: 0,
+            // backgroundColor: ["#f4e04d"],
+            data:[
+                    {% for i in pred_total_cases %}
+                        {
+                            x: "{{i[0]}}",
+                            y:  {{i[1]}}
+                        },
+                    {% endfor %}
+                 ]  
+            };
+
+        var data6 = {
+            label: 'Total Cases',
+            borderColor: 'yellow',
+            pointRadius: 0,
+            // backgroundColor: ["red"],
+            data:[
+                    {% for i in total_cases %}
+                        {
+                            x: "{{i[0]}}",
+                            y:  {{i[1]}}
+                        },
+                    {% endfor %}
+                 ]  
+            };
+
+        var data7 = {
+            label: 'Active Cases',
+            borderColor: 'blue',
+            pointRadius: 0,
+            // backgroundColor: ["red"],
+            data:[
+                    {% for i in total_active %}
+                        {
+                            x: "{{i[0]}}",
+                            y:  {{i[1]}}
+                        },
+                    {% endfor %}
+                 ]  
+            };
+
+        var data8 = {
+            label: 'Predicted Active Cases',
+            borderColor: 'red',
+            pointRadius: 0,
+            // backgroundColor: ["red"],
+            data:[
+                    {% for i in pred_active_cases %}
+                        {
+                            x: "{{i[0]}}",
+                            y:  {{i[1]}}
+                        },
+                    {% endfor %}
+                 ]  
+            };
+
+        var data9 = {
+            label: 'Daily Confirmed Cases',
+            borderColor: 'black',
+            pointRadius: 0,
+            // backgroundColor: ["red"],
+            data:[
+                    {% for i in delta_confirmed %}
+                        {
+                            x: "{{i[0]}}",
+                            y:  {{i[1]}}
+                        },
+                    {% endfor %}
+                 ]  
+            };
+
+        var data10 = {
+            label: 'Predicted Daily Confirmed Cases',
+            borderColor: 'red',
+            pointRadius: 0,
+            // backgroundColor: ["red"],
+            data:[
+                    {% for i in pred_daily_cases %}
+                        {
+                            x: "{{i[0]}}",
+                            y:  {{i[1]}}
+                        },
+                    {% endfor %}
+                 ]  
+            };
+
+        var ctx1 = document.getElementById('my-simple-chart-1').getContext('2d');
+        var chart = new Chart(ctx1, {
             type: 'line',
             data: {
                 datasets: [data1, data2, data3, data4]
@@ -398,6 +491,94 @@
                 title: {
                     display: true,
                     text: "Status of COVID-19 in India"
+                    },
+                scales: {
+                    xAxes: [{
+                        type: 'time',
+                        time: {
+                                displayFormats: {
+                                                    day: 'MMM D'
+                                                }
+                                }
+                    }]
+                }
+            }
+        });
+
+
+        var ctx2 = document.getElementById('my-simple-chart-2').getContext('2d');
+        var chart = new Chart(ctx2, {
+            type: 'line',
+            data: {
+                datasets: [data6, data5]
+            },
+            options: {
+                tooltips: {
+                            intersect: false
+                          },
+                responsive: true,
+                maintainAspectRatio: true,
+                title: {
+                    display: true,
+                    text: "Total COVID-19 Cases in India (for the next 30 days)"
+                    },
+                scales: {
+                    xAxes: [{
+                        type: 'time',
+                        time: {
+                                displayFormats: {
+                                                    day: 'MMM D'
+                                                }
+                                }
+                    }]
+                }
+            }
+        });
+
+        var ctx3 = document.getElementById('my-simple-chart-3').getContext('2d');
+        var chart = new Chart(ctx3, {
+            type: 'line',
+            data: {
+                datasets: [data7, data8]
+            },
+            options: {
+                tooltips: {
+                            intersect: false
+                          },
+                responsive: true,
+                maintainAspectRatio: true,
+                title: {
+                    display: true,
+                    text: "Active COVID-19 Cases in India (for the next 30 days)"
+                    },
+                scales: {
+                    xAxes: [{
+                        type: 'time',
+                        time: {
+                                displayFormats: {
+                                                    day: 'MMM D'
+                                                }
+                                }
+                    }]
+                }
+            }
+        });
+
+        var ctx4 = document.getElementById('my-simple-chart-4').getContext('2d');
+        var chart = new Chart(ctx4, {
+            type: 'line',
+            data: {
+                datasets: [data9, data10]
+            },
+            options: {
+                tooltips: {
+                            intersect: false
+                          },
+                responsive: true,
+                maintainAspectRatio: true,
+                title: {
+                    display: true,
+                    text: "Daily Confirmed COVID-19 Cases in India (for the next 30 days)"
                     },
                 scales: {
                     xAxes: [{
