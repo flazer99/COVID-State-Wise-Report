@@ -54,7 +54,7 @@ def fetch_nation():
         nation_details.append(res)
         date, month = i['date'].split()
         month = cal[month]
-        time_ = str(month) + " " + str(int(date))
+        time_ = str(month) + " " + str(int(date)) + " " + str(int(i['dateymd'].split('-')[0]))
         
         daily_cases.append(i['dailyconfirmed'])
         daily_deaths.append(i['dailydeceased'])
@@ -77,7 +77,7 @@ def fetch_nation():
            , '11':'Nov', '12':'Dec'}
     
     for i in pred_total_cases[1:]:
-        i[0] = cal_ind[i[0].split('-')[1]] + " " + i[0].split('-')[2]
+        i[0] = cal_ind[i[0].split('-')[1]] + " " + i[0].split('-')[2] + " " + i[0].split('-')[0]
         i[1] = int(float(i[1]))  
 
     #Active Cases
@@ -85,7 +85,7 @@ def fetch_nation():
     pred_active_cases = restructure(f)
 
     for i in pred_active_cases[1:]:
-        i[0] = cal_ind[i[0].split('-')[1]] + " " + i[0].split('-')[2]
+        i[0] = cal_ind[i[0].split('-')[1]] + " " + i[0].split('-')[2] + " " + i[0].split('-')[0]
         i[1] = int(float(i[1])) 
         if(i[1]<0):
             i[1] = 0
@@ -96,7 +96,7 @@ def fetch_nation():
     # print(res[1:])
 
     for i in pred_daily_cases[1:]:
-        i[0] = cal_ind[i[0].split('-')[1]] + " " + i[0].split('-')[2]
+        i[0] = cal_ind[i[0].split('-')[1]] + " " + i[0].split('-')[2] + " " + i[0].split('-')[0]
         i[1] = int(float(i[1]))
         if(i[1]<0):
             i[1] = 0        
