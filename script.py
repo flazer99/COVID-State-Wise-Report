@@ -52,7 +52,7 @@ def fetch_nation():
         res = [i['dailyconfirmed'], i['dailydeceased'], i['dailyrecovered'], i['date'], i['totalconfirmed']
         , i['totaldeceased'], i['totalrecovered']]
         nation_details.append(res)
-        date, month = i['date'].split()
+        date, month, year = i['date'].split()
         month = cal[month]
         time_ = str(month) + " " + str(int(date)) + " " + str(int(i['dateymd'].split('-')[0]))
         
