@@ -110,6 +110,7 @@ def fetch_resources():
 
     y = json.loads(json.dumps(data))
     resources = dict()
+    ctr = 0
     for i in y['resources']:
         if(i['state'] not in resources):
             tmp = [[i['category'], i['city'], i['contact'], 
@@ -118,6 +119,12 @@ def fetch_resources():
             resources[i['state']] = tmp
 
         else:
+            if(i['state'] == 'Karnataka'):
+                ctr+=1
+            
+            if(ctr == 4):
+                continue
+
             resources[i['state']].append([i['category'], i['city'], i['contact'], 
                     i['descriptionandorserviceprovided'], i['nameoftheorganisation']
                     ,i['phonenumber'], i['recordid'], i['state']])
